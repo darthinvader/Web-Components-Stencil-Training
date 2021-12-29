@@ -3,11 +3,13 @@ class Tooltip extends HTMLElement {
     super();
     this._tooltipContainer;
     this._tooltipText = "Some Dummy Tooltip text";
+    this.attachShadow({ mode: "open" });
+    const template = document.querySelector("#tooltip-template");
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
   connectedCallback() {
     this._tooltipText = this.getAttribute("text") || this._tooltipText;
-    const tooltipIcon = document.createElement("span");
-    tooltipIcon.textContent = " (?)";
+    const tooltipIcon = this.shadowRoot.querySelector("span");
     tooltipIcon.addEventListener("mouseenter", () => {
       this._tooltipContainer = document.createElement("div");
       this._tooltipContainer.textContent = this._tooltipText;
@@ -16,13 +18,12 @@ class Tooltip extends HTMLElement {
       this._tooltipContainer.style.position = "absolute";
       this._tooltipContainer.style.zIndex = "100";
 
-      this.appendChild(this._tooltipContainer);
+      this.shadowRoot.appendChild(this._tooltipContainer);
       this.style.position = "relative";
     });
     tooltipIcon.addEventListener("mouseleave", () => {
-      this.removeChild(this._tooltipContainer);
+      this.shadowRoot.removeChild(this._tooltipContainer);
     });
-    this.appendChild(tooltipIcon);
   }
 }
 
