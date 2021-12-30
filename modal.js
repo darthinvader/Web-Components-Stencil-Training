@@ -88,6 +88,9 @@ class Modal extends HTMLElement {
 
     cancelButton.addEventListener("click", this._cancel.bind(this));
     confirmButton.addEventListener("click", this._confirm.bind(this));
+    cancelButton.addEventListener("cancel", () => {
+      console.log("CANCELLED");
+    });
   }
 
   // attributeChangedCallback(name, oldValue, newValue) {
@@ -114,8 +117,10 @@ class Modal extends HTMLElement {
     }
   }
 
-  _cancel() {
+  _cancel(event) {
     this.hide();
+    const cancelEvent = new Event("cancel");
+    event.target.dispatchEvent(cancelEvent);
   }
 
   _confirm() {
