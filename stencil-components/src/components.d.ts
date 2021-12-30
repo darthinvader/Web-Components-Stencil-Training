@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface YcpSideDrawer {
+        "title": string;
     }
 }
 declare global {
@@ -22,6 +23,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface YcpSideDrawer {
+        "title"?: string;
     }
     interface IntrinsicElements {
         "ycp-side-drawer": YcpSideDrawer;
