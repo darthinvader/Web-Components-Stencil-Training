@@ -17,7 +17,8 @@
   </style>
 </head>
 <body>
-  <ycp-modal>
+  <ycp-modal modal-title="Please Confirm!">
+    <h1 slot="title">Please Confirm!</h1>
     <p>With this confirmation you agree to pay the full amount!</p>
   </ycp-modal>
   <p>Please Confirm your choice.</p>
@@ -26,7 +27,8 @@
     const confirmButton = document.querySelector('button');
     const modal = document.querySelector('ycp-modal');
     confirmButton.addEventListener('click', ()=>{
-      modal.setAttribute('opened', '');
+      // modal.setAttribute('opened', '');
+      modal.open();
     })
   </script>
 </body>
