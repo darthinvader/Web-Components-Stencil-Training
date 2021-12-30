@@ -7,13 +7,39 @@
 
     <script type="module" src="/build/stencil-components.esm.js"></script>
     <script nomodule src="/build/stencil-components.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      
+      .side-nav ul {
+        list-style:none;
+      }
+
+      .side-nav a {
+        text-decoration: none;
+        color: orangered;
+      }
+
+      .side-nav li {
+        margin: 1rem 0;
+      }
+    </style>
   </head>
   <body>
-    <ycp-side-drawer title="Main Menu"></ycp-side-drawer>
+    <ycp-side-drawer title="Main Menu">
+      <nav class="side-nav">
+        <ul>
+          <li><a href="/">A link</a></li>
+          <li><a href="/">Another link</a></li>
+          <li><a href="/">Another yet link</a></li>
+        </ul>
+      </nav>
+    </ycp-side-drawer>
     <script>
       const sideDrawer = document.querySelector('ycp-side-drawer');
       setTimeout(()=>{
-        sideDrawer.title = 'It changed'
+        // sideDrawer.title = 'It changed'
         // sideDrawer.setAttribute('title', 'It Changed!')
       },2000)
     </script>
