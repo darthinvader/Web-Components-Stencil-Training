@@ -62,6 +62,14 @@ class Tooltip extends HTMLElement {
       this.shadowRoot.removeChild(this._tooltipContainer);
     });
   }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    console.log(name, oldValue, newValue);
+  }
+
+  static get observedAttributes() {
+    return ["text"];
+  }
 }
 
 customElements.define("ycp-tooltip", Tooltip);
