@@ -12,6 +12,11 @@ class Tooltip extends HTMLElement {
           position: absolute;
           z-index:10;
         }
+
+        :host {
+          background-color: lightgray;
+        }
+
         .highlight{
           background-color: red;
         }
@@ -19,9 +24,17 @@ class Tooltip extends HTMLElement {
         ::slotted(.highlight) {
           border-bottom: 1px dotted yellow;
         }
+
+        .icon {
+          background-color: black;
+          color: white;
+          padding: 0.15rem 0.5rem;
+          text-align: center;
+          border-radius: 50%;
+        }
       </style>
       <slot>Some default</slot>
-      <span> (?)</span>
+      <span class="icon">?</span>
     `;
   }
   connectedCallback() {
