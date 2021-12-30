@@ -27,6 +27,7 @@
     </style>
   </head>
   <body>
+    <button id="side-drawer-btn" style="z-index:10000000;background:black; color:white;">Open Side Menu</button>
     <ycp-side-drawer title="Main Menu">
       <nav class="side-nav">
         <ul>
@@ -37,6 +38,13 @@
       </nav>
     </ycp-side-drawer>
     <script>
+      const sideDrawerButton = document.querySelector('#side-drawer-btn');
+      sideDrawerButton.addEventListener('click', ()=>{
+        if (!sideDrawer.open){
+          console.log('Opening side drawer...');
+          sideDrawer.open = true;
+        }
+      })
       const sideDrawer = document.querySelector('ycp-side-drawer');
       setTimeout(()=>{
         // sideDrawer.title = 'It changed'
