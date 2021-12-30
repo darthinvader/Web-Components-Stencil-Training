@@ -45,7 +45,7 @@ class Modal extends HTMLElement {
           padding: 1rem;
         }
 
-        header h1 {
+        ::sloted(h1) {
           font-size: 1.25rem;
         }
 
