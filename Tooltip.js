@@ -1,7 +1,8 @@
 class Tooltip extends HTMLElement {
   constructor() {
     super();
-    this._tooltipContainer;
+    this._tooltipIcon;
+    this._tooltipVisible = false;
     this._tooltipText = "Some Dummy Tooltip text";
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `
@@ -50,17 +51,27 @@ class Tooltip extends HTMLElement {
   }
   connectedCallback() {
     this._tooltipText = this.getAttribute("text") || this._tooltipText;
-    const tooltipIcon = this.shadowRoot.querySelector("span");
-    tooltipIcon.addEventListener("mouseenter", () => {
-      this._tooltipContainer = document.createElement("div");
-      this._tooltipContainer.textContent = this._tooltipText;
+    this._tooltipIcon = this.shadowRoot.querySelector("span");
+    this._tooltipIcon.addEventListener("mouseenter", () => {
+      this._tooltipVisible = true;
+      this._render();
+    });
+    this._tooltipIcon.addEventListener("mouseleave", () => {
+      this._tooltipVisible = false;
+      this._render();
+    });
+    this._render();
+  }
 
-      this.shadowRoot.appendChild(this._tooltipContainer);
-      this.style.position = "relative";
-    });
-    tooltipIcon.addEventListener("mouseleave", () => {
-      this.shadowRoot.removeChild(this._tooltipContainer);
-    });
+  _render() {
+    let tooltipContainer = this.shadowRoot.querySelector("div");
+    if (this._tooltipVisible) {
+      this.tooltipContainer = document.createElement("div");
+      this.tooltipContainer.textContent = this._tooltipText;
+      this.shadowRoot.appendChild(this.tooltipContainer);
+    } else {
+      if (tooltipContainer) this.shadowRoot.removeChild(this.tooltipContainer);
+    }
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -72,6 +83,10 @@ class Tooltip extends HTMLElement {
     if (name === "text") {
       this._tooltipText = newValue;
     }
+  }
+
+  disconnectedCallback() {
+    console.log("disconnected");
   }
 
   static get observedAttributes() {
