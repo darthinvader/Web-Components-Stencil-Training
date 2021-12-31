@@ -21,6 +21,7 @@ stencil-components/node_modules/
 stencil-components/$RECYCLE.BIN/
 
 stencil-components/.DS_Store
+stencil-components/src/global
 stencil-components/Thumbs.db
 stencil-components/UserInterfaceState.xcuserstate
 stencil-components/.env

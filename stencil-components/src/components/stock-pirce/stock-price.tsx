@@ -1,4 +1,5 @@
 import { Component, h, State } from '@stencil/core';
+import { AV_API_KEY } from '../../global/global';
 
 @Component({ tag: 'ycp-stock-price', styleUrl: './stock-price.scss', shadow: true })
 export class StockPrice {
@@ -6,7 +7,7 @@ export class StockPrice {
 
   onFetchStockPrice(event: Event) {
     event.preventDefault();
-    fetch('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo')
+    fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo`)
       .then(res => {
         return res.json();
       })
