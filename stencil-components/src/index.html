@@ -40,9 +40,10 @@
     <script>
       const sideDrawerButton = document.querySelector('#side-drawer-btn');
       sideDrawerButton.addEventListener('click', ()=>{
-        if (!sideDrawer.open){
+        if (!sideDrawer.opened){
           console.log('Opening side drawer...');
-          sideDrawer.open = true;
+          // sideDrawer.opened = true;
+          sideDrawer.open();
         }
       })
       const sideDrawer = document.querySelector('ycp-side-drawer');
