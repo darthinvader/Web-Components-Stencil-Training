@@ -11,6 +11,8 @@ export namespace Components {
         "opened": boolean;
         "title": string;
     }
+    interface YcpStockPrice {
+    }
 }
 declare global {
     interface HTMLYcpSideDrawerElement extends Components.YcpSideDrawer, HTMLStencilElement {
@@ -19,8 +21,15 @@ declare global {
         prototype: HTMLYcpSideDrawerElement;
         new (): HTMLYcpSideDrawerElement;
     };
+    interface HTMLYcpStockPriceElement extends Components.YcpStockPrice, HTMLStencilElement {
+    }
+    var HTMLYcpStockPriceElement: {
+        prototype: HTMLYcpStockPriceElement;
+        new (): HTMLYcpStockPriceElement;
+    };
     interface HTMLElementTagNameMap {
         "ycp-side-drawer": HTMLYcpSideDrawerElement;
+        "ycp-stock-price": HTMLYcpStockPriceElement;
     }
 }
 declare namespace LocalJSX {
@@ -28,8 +37,11 @@ declare namespace LocalJSX {
         "opened"?: boolean;
         "title"?: string;
     }
+    interface YcpStockPrice {
+    }
     interface IntrinsicElements {
         "ycp-side-drawer": YcpSideDrawer;
+        "ycp-stock-price": YcpStockPrice;
     }
 }
 export { LocalJSX as JSX };
@@ -37,6 +49,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "ycp-side-drawer": LocalJSX.YcpSideDrawer & JSXBase.HTMLAttributes<HTMLYcpSideDrawerElement>;
+            "ycp-stock-price": LocalJSX.YcpStockPrice & JSXBase.HTMLAttributes<HTMLYcpStockPriceElement>;
         }
     }
 }
