@@ -12,6 +12,7 @@ export namespace Components {
         "title": string;
     }
     interface YcpStockPrice {
+        "stockSymbol": string;
     }
 }
 declare global {
@@ -38,6 +39,7 @@ declare namespace LocalJSX {
         "title"?: string;
     }
     interface YcpStockPrice {
+        "stockSymbol"?: string;
     }
     interface IntrinsicElements {
         "ycp-side-drawer": YcpSideDrawer;

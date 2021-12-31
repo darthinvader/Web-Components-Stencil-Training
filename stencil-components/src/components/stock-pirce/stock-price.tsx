@@ -1,4 +1,4 @@
-import { Component, Element, h, State } from '@stencil/core';
+import { Component, Element, h, Prop, State } from '@stencil/core';
 import { AV_API_KEY } from '../../global/global';
 
 @Component({ tag: 'ycp-stock-price', styleUrl: './stock-price.scss', shadow: true })
@@ -11,6 +11,8 @@ export class StockPrice {
   @State() stockInputValid = false;
   @State() error: string;
 
+  @Prop() stockSymbol: string;
+
   onUserInput(event: Event) {
     this.stockUserInput = (event.target as HTMLInputElement).value;
     this.stockInputValid = this.stockUserInput.trim() !== '';
@@ -19,6 +21,16 @@ export class StockPrice {
   onFetchStockPrice(event: Event) {
     event.preventDefault();
     const stockSymbol = this.stockInput.value;
+    this.fetchStockPrice(stockSymbol);
+  }
+
+  componentDidLoad() {
+    if (this.stockSymbol) {
+      this.fetchStockPrice(this.stockSymbol);
+    }
+  }
+
+  fetchStockPrice(stockSymbol) {
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=demo${AV_API_KEY}`)
       .then(res => {
         if (res.status !== 200) throw new Error('Invalid');
