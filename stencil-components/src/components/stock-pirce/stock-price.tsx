@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, State } from '@stencil/core';
+import { Component, Element, h, Listen, Prop, State, Watch } from '@stencil/core';
 import { AV_API_KEY } from '../../global/global';
 
 @Component({ tag: 'ycp-stock-price', styleUrl: './stock-price.scss', shadow: true })
@@ -14,6 +14,14 @@ export class StockPrice {
 
   @Prop() stockSymbol: string;
 
+  @Watch('stockSymbol')
+  stockSymbolChanged(newValue: string, oldValue: string) {
+    if (newValue !== oldValue) {
+      this.stockUserInput = newValue;
+      this.stockInputValid = true;
+      this.fetchStockPrice(newValue);
+    }
+  }
   onUserInput(event: Event) {
     this.stockUserInput = (event.target as HTMLInputElement).value;
     this.stockInputValid = this.stockUserInput.trim() !== '';
@@ -50,7 +58,7 @@ export class StockPrice {
       this.fetchStockPrice(this.stockSymbol);
     }
   }
-  x;
+
   fetchStockPrice(stockSymbol) {
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=demo${AV_API_KEY}`)
       .then(res => {
@@ -64,6 +72,16 @@ export class StockPrice {
         console.log(parsedRes);
       })
       .catch(err => (this.error = err.message));
+  }
+
+  @Listen('body:ycpSymbolSelected')
+  onStockSymbolSelected(event: CustomEvent) {
+    console.log('RUN');
+    console.log('stock symbol selected: ' + event.detail);
+    if (event.detail && event.detail !== this.stockSymbol) {
+      this.fetchStockPrice(event.detail);
+      this.stockSymbol = event.detail;
+    }
   }
 
   render() {
