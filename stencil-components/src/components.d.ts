@@ -48,6 +48,7 @@ declare namespace LocalJSX {
         "title"?: string;
     }
     interface YcpStockFinder {
+        "onYcpSymbolSelected"?: (event: CustomEvent<string>) => void;
     }
     interface YcpStockPrice {
         "stockSymbol"?: string;

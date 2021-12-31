@@ -1,4 +1,4 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, Event, EventEmitter, h, State } from '@stencil/core';
 import { AV_API_KEY } from '../../global/global';
 @Component({
   tag: 'ycp-stock-finder',
@@ -9,6 +9,8 @@ export class StockFinder {
   stockNameInput: HTMLInputElement;
 
   @State() searchResults: { symbol: string; name: string }[] = [];
+
+  @Event({ bubbles: true, composed: true }) ycpSymbolSelected: EventEmitter<string>;
 
   onFindStocks(event: Event) {
     event.preventDefault();
@@ -24,6 +26,10 @@ export class StockFinder {
       .catch(err => console.log(err));
   }
 
+  onSelectSymbol(symbol: string) {
+    this.ycpSymbolSelected.emit(symbol);
+  }
+
   render() {
     return (
       <div>
@@ -33,7 +39,7 @@ export class StockFinder {
         </form>
         <ul>
           {this.searchResults.map(result => (
-            <li>{result.name}</li>
+            <li onClick={this.onSelectSymbol.bind(this, result.symbol)}>{result.name}</li>
           ))}
         </ul>
       </div>
