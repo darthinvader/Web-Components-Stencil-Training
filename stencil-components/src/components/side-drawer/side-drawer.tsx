@@ -40,19 +40,22 @@ export class SideDrawer {
         </div>
       );
     return (
-      <aside>
-        <header>
-          <h1>{this.title}</h1>
-          <button onClick={this.onCloseDrawer}>X</button>
-        </header>
-        <section id="tabs">
-          <button class={!this.showContactInfo ? 'active' : ''}>Navigation</button>
-          <button onClick={() => this.onContentChange('contact')} class={this.showContactInfo ? 'active' : ''}>
-            Contact
-          </button>
-        </section>
-        <main>{mainContent}</main>
-      </aside>
+      <div>
+        <div class="backdrop" onClick={this.onCloseDrawer}></div>
+        <aside>
+          <header>
+            <h1>{this.title}</h1>
+            <button onClick={this.onCloseDrawer}>X</button>
+          </header>
+          <section id="tabs">
+            <button class={!this.showContactInfo ? 'active' : ''}>Navigation</button>
+            <button onClick={() => this.onContentChange('contact')} class={this.showContactInfo ? 'active' : ''}>
+              Contact
+            </button>
+          </section>
+          <main>{mainContent}</main>
+        </aside>
+      </div>
     );
   }
 }
