@@ -71,7 +71,9 @@ export class StockPrice {
         this.fetchedPrice = +parsedRes['Global Quote']['05. price'];
         console.log(parsedRes);
       })
-      .catch(err => (this.error = err.message));
+      .catch(err => {
+        this.error = err.message;
+      });
   }
 
   @Listen('body:ycpSymbolSelected')
@@ -82,6 +84,10 @@ export class StockPrice {
       this.fetchStockPrice(event.detail);
       this.stockSymbol = event.detail;
     }
+  }
+
+  hostData() {
+    return { class: this.error ? 'error' : '' };
   }
 
   render() {
