@@ -25,11 +25,24 @@ export class StockPrice {
   }
 
   componentDidLoad() {
+    console.log('ComponentDidLoad');
     if (this.stockSymbol) {
       this.fetchStockPrice(this.stockSymbol);
     }
   }
 
+  componentWillLoad() {
+    console.log('componentWillLoad');
+    console.log(this.stockSymbol);
+  }
+
+  componentWillUpdate() {
+    console.log('Component Will Update');
+  }
+
+  componentDidUpdate() {
+    console.log('Component Did Update');
+  }
   fetchStockPrice(stockSymbol) {
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=demo${AV_API_KEY}`)
       .then(res => {
