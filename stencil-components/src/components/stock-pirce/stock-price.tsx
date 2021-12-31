@@ -4,6 +4,7 @@ import { AV_API_KEY } from '../../global/global';
 @Component({ tag: 'ycp-stock-price', styleUrl: './stock-price.scss', shadow: true })
 export class StockPrice {
   stockInput: HTMLInputElement;
+  initialStockSymbol: string;
 
   @State() fetchedPrice: number;
   @Element() el: HTMLElement;
@@ -27,6 +28,9 @@ export class StockPrice {
   componentDidLoad() {
     console.log('ComponentDidLoad');
     if (this.stockSymbol) {
+      this.initialStockSymbol = this.stockSymbol;
+      this.stockUserInput = this.stockSymbol;
+      this.stockInputValid = true;
       this.fetchStockPrice(this.stockSymbol);
     }
   }
@@ -42,7 +46,11 @@ export class StockPrice {
 
   componentDidUpdate() {
     console.log('Component Did Update');
+    if (this.stockSymbol !== this.initialStockSymbol) {
+      this.fetchStockPrice(this.stockSymbol);
+    }
   }
+  x;
   fetchStockPrice(stockSymbol) {
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=demo${AV_API_KEY}`)
       .then(res => {
