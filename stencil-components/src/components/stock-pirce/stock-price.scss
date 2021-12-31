@@ -35,5 +35,12 @@ form {
     &:focus {
       outline: none;
     }
+
+    &:disabled {
+      background-color: lightgray;
+      border-color: lightgray;
+      color: gray;
+      cursor: not-allowed;
+    }
   }
 }
